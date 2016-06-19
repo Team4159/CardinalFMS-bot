@@ -1,8 +1,9 @@
 #include "Error.h"
 
-#include "Arduino.h"
 #include "Watchdogs.h"
-#include "Wifi.h"
+#include "FMS.h"
+
+#include "Arduino.h"
 
 void setupErrors()
 {
@@ -13,19 +14,19 @@ void setupErrors()
 void warning(const __FlashStringHelper* str)
 {
 	Serial.print(F("[WARNING] ")); Serial.println(str);
-	queueData(F("[WARNING] ")); sendPacket(str);
+	FMS::log(WARNING, str);
 }
 
 void error(const __FlashStringHelper* str)
 {
 	Serial.print(F("[ERROR] ")); Serial.println(str);
-	queueData(F("[ERROR] ")); sendPacket(str);
+	FMS::log(ERROR, str);
 }
 
 void fatal(const __FlashStringHelper* str)
 {
 	Serial.print(F("[FATAL] ")); Serial.println(str); //Doesn't usually get through 
-	queueData(F("[FATAL] ")); sendPacket(str);
+	FMS::log(FATAL, str);
 	//Set error pin to high
 	digitalWrite(8, HIGH);
 	disableAllMotors();

@@ -9,4 +9,8 @@ void warning(const __FlashStringHelper* str);
 void error(const __FlashStringHelper* str);
 void fatal(const __FlashStringHelper* str);
 
+enum ErrorLevel {
+	WARNING, ERROR, FATAL
+};
+
 #endif

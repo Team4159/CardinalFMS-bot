@@ -4,6 +4,7 @@
 #include "PWM.h"
 #include "Error.h"
 #include "Wifi.h"
+#include "FMS.h"
 
 int robotState;
 
@@ -28,7 +29,7 @@ int main(void)
 	setupPWM();
 	
 	//Setup wifi
-	setupWifi();
+	Wifi::init();
 	
 	delay(200); //Wait for output and stuff before setting up watchdogs
 	            //Idk if this is necessary 
@@ -45,7 +46,7 @@ int main(void)
 	
 	while(true)
 	{
-		if(!fmsConnected() && getState() != DISABLED)
+		if(!FMS::isConnected() && getState() != DISABLED)
 		{
 			setState(DISABLED);
 		}
@@ -57,13 +58,7 @@ int main(void)
 			wifiConnect();
 			enableWatchdogs();
 		} else {*/
-			if(!fmsConnected())
-			{
-				disableWatchdogs();
-				fmsConnect();
-				enableWatchdogs();
-			}
-			wifiPeriodic();
+			FMS::periodic();
 		//}
 		
 		//Call user code

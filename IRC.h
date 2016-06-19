@@ -1,7 +1,7 @@
 #ifndef IRC_H
 #define IRC_H
 
-#warning should be changed for prod
+#warning Team number should be defined in user code for prod
 #define TEAM_NUMBER 1
 
 #ifndef TEAM_NUMBER
